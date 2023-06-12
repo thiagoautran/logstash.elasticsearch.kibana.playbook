@@ -16,6 +16,17 @@ sudo usermod -aG sudo [NOME_DO_USUARIO]
 ```
 apt install ansible
 ```
+
+* vim
+```
+sudo apt install vim
+```
+
+3) Abra o arquivo sources.list e comente todas as linhas que tiverem a palavra CD-ROM 
+```
+vim /etc/apt/sources.list
+```
+
 - [logstash](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/v2/exemplo/logstash/README.md)
 - [elasticsearch_master_01](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/v2/exemplo/elastic_mater_01/README.md)
 - [elasticsearch_master_02](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/v2/exemplo/elastic_mater_02/README.md)
