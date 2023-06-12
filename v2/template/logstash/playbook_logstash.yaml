@@ -1,0 +1,46 @@
+---
+- name: Instalar e configurar o Logstash
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Instalar pacote gnupg
+      apt:
+        name: gnupg
+        state: present
+  
+    - name: Importar chave GPG do Elasticsearch
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+
+    - name: Adicionar repositório do Elasticsearch
+      apt_repository:
+        repo: deb https://artifacts.elastic.co/packages/7.x/apt stable main
+        state: present
+        filename: "elastic-7.x.list"
+        update_cache: yes
+
+    - name: Atualizar cache do APT
+      apt:
+        update_cache: yes
+
+    - name: Instalar o Logstash
+      apt:
+        name: logstash
+        state: present
+
+    - name: Copiar arquivo de configuração
+      template:
+        src: logstash.conf
+        dest: /etc/logstash/conf.d/logstash.conf
+        owner: root
+        group: root
+        mode: 0644
+      notify: Reiniciar serviço Logstash
+
+  handlers:
+    - name: Reiniciar serviço Logstash
+      service:
+        name: logstash
+        state: restarted
