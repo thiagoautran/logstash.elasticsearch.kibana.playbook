@@ -38,11 +38,27 @@ vim /home/[NOME_DO_USUARIO]/hosts.ini
 localhost ansible_connection=local
 ```
 
-6) Crie o arquivo "playbook_elasticsearch.yml"
+6) Crie o arquivo "elasticsearch.yml"
+```
+vim /home/[NOME_DO_USUARIO]/elasticsearch.yml
+```
+7) Adicione o texto abaixo ao arquivo "elasticsearch.yml"
+```
+cluster.name: clr_elasticsearch
+node.name: elasticmaster01
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+network.host: 0.0.0.0
+http.port: 9200
+discovery.seed_hosts: ["127.0.0.1", "192.168.254.142", "192.168.254.143"]
+cluster.initial_master_nodes: ["elasticmaster01", "elasticmaster02", "elasticmaster03"]
+```
+
+8) Crie o arquivo "playbook_elasticsearch.yml"
 ```
 vim /home/[NOME_DO_USUARIO]/playbook_elasticsearch.yml
 ```
-7) Adicione o texto abaixo ao arquivo "playbook_elasticsearch.yml"
+9) Adicione o texto abaixo ao arquivo "playbook_elasticsearch.yml"
 ```
 ---
 - name: Instalar e configurar o Elasticsearch
@@ -90,22 +106,6 @@ vim /home/[NOME_DO_USUARIO]/playbook_elasticsearch.yml
       service:
         name: elasticsearch
         state: restarted
-```
-
-8) Crie o arquivo "elasticsearch.yml"
-```
-vim /home/[NOME_DO_USUARIO]/elasticsearch.yml
-```
-9) Adicione o texto abaixo ao arquivo "elasticsearch.yml"
-```
-cluster.name: clr_elasticsearch
-node.name: elasticmaster01
-path.data: /var/lib/elasticsearch
-path.logs: /var/log/elasticsearch
-network.host: 0.0.0.0
-http.port: 9200
-discovery.seed_hosts: ["127.0.0.1", "192.168.254.142", "192.168.254.143"]
-cluster.initial_master_nodes: ["elasticmaster01", "elasticmaster02", "elasticmaster03"]
 ```
 
 
