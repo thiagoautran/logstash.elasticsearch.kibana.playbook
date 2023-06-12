@@ -1,3 +1,5 @@
-- [logstash]()
+- [logstash](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/tree/main/v2/logstash)
 - [elasticsearch](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/tree/main/v2/elastic_mater_01)
-- [kibana]()
+- [elasticsearch](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/tree/main/v2/elastic_mater_02)
+- [elasticsearch](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/tree/main/v2/elastic_mater_02)
+- [kibana](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/tree/main/v2/kibana)
