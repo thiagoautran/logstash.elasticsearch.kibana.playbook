@@ -1,5 +1,6 @@
 ## Elasticsearch
 
+### Criando e configurando as vm's
 1) Crie 3 vm usando a distribuição [debian](https://www.debian.org/CD/http-ftp/) com os seguintes nomes:
 - elastic_master_01
 - elastic_master_02
@@ -27,22 +28,25 @@ sudo apt install vim
 vim /etc/apt/sources.list
 ```
 
-4) Crie o arquivo "hosts.ini"
+### Criando e configurando os arquivos de configuração do elasticsearch para cada vm
+
+1) Arquivo "hosts.ini"
+* Crie o arquivo
 ```
 vim /home/[NOME_DO_USUARIO]/hosts.ini
 ```
-
-5) Adicione o texto abaixo ao arquivo "hosts.ini"
+* Adicione o texto abaixo
 ```
 [meuservidores]
 localhost ansible_connection=local
 ```
 
-6) Crie o arquivo "elasticsearch.yml"
+2) Arquivo "elasticsearch.yml"
+* Crie o arquivo
 ```
 vim /home/[NOME_DO_USUARIO]/elasticsearch.yml
 ```
-7) Adicione o texto abaixo ao arquivo "elasticsearch.yml"
+* Adicione o texto abaixo
 ```
 cluster.name: clr_elasticsearch
 node.name: elasticmaster01
@@ -54,11 +58,12 @@ discovery.seed_hosts: ["127.0.0.1", "192.168.254.142", "192.168.254.143"]
 cluster.initial_master_nodes: ["elasticmaster01", "elasticmaster02", "elasticmaster03"]
 ```
 
-8) Crie o arquivo "playbook_elasticsearch.yml"
+2) Arquivo "playbook_elasticsearch.yml"
+* Crie o arquivo
 ```
 vim /home/[NOME_DO_USUARIO]/playbook_elasticsearch.yml
 ```
-9) Adicione o texto abaixo ao arquivo "playbook_elasticsearch.yml"
+* Adicione o texto abaixo
 ```
 ---
 - name: Instalar e configurar o Elasticsearch
