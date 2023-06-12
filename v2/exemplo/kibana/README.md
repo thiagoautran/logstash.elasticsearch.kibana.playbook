@@ -13,11 +13,14 @@
 
 ### Criar os arquivos de configuração
 > vim /home/[NOME_DO_USUARIO]/hosts.ini<br>
-> vim /home/[NOME_DO_USUARIO]/elasticsearch.yml<br>
-> vim /home/[NOME_DO_USUARIO]/playbook_elasticsearch.yml
+> vim /home/[NOME_DO_USUARIO]/kibana.yml<br>
+> vim /home/[NOME_DO_USUARIO]/playbook_kibana.yml
+
+### Alterar os campos no arquivo kibana.yml
+> elasticsearch.hosts
 
 ### Executar o playbook como root
-> ansible-playbook -i /home/[NOME_DO_USUARIO]/hosts.ini /home/[NOME_DO_USUARIO]/playbook_elasticsearch.yml
+> ansible-playbook -i /home/[NOME_DO_USUARIO]/hosts.ini /home/[NOME_DO_USUARIO]/playbook_kibana.yml
 
 ### Criar arquivo de inicialização automatico
-> vim /etc/init.d/start_elasticsearch.sh
+> vim /etc/init.d/start_kibana.sh

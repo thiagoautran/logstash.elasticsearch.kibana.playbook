@@ -16,6 +16,12 @@
 > vim /home/[NOME_DO_USUARIO]/elasticsearch.yml<br>
 > vim /home/[NOME_DO_USUARIO]/playbook_elasticsearch.yml
 
+### Alterar os campos no arquivo elasticsearch.yml
+> cluster.name<br>
+> node.name<br>
+> discovery.seed_hosts<br>
+> cluster.initial_master_nodes
+
 ### Executar o playbook como root
 > ansible-playbook -i /home/[NOME_DO_USUARIO]/hosts.ini /home/[NOME_DO_USUARIO]/playbook_elasticsearch.yml
 
