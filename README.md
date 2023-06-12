@@ -7,11 +7,11 @@
 
 2) Em cada uma das vm instale os pré-requisitos abaixo:
 * sudo
-´´´
+```
 > apt update<br>
 > apt install sudo<br>
 > sudo usermod -aG sudo [NOME_DO_USUARIO]
-´´´
+```
 * ansible (Necessário para roda o playbook)
 > apt install ansible
 
