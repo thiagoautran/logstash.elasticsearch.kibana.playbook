@@ -148,14 +148,19 @@ sudo systemctl enable elasticsearch
 ```
 
 5) Abra o chrome e digite as url's
-> http://IP_VM_ELASTICMASTER01]:9200/
-> http://IP_VM_ELASTICMASTER02]:9200/
-> http://IP_VM_ELASTICMASTER03]:9200/
+> http://[IP_VM_ELASTICMASTER01]:9200/
+> http://[IP_VM_ELASTICMASTER02]:9200/
+> http://[IP_VM_ELASTICMASTER03]:9200/
 
 6) Exemplos dos arquivos 
 > [elasticmater01](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/tree/main/files/elastic_mater_01)<br>
 > [elasticmater02](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/tree/main/files/elastic_mater_02)<br>
 > [elasticmater03](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/tree/main/files/elastic_mater_03)
+
+7) Para vê is logs do elasticsearch
+```
+tail -300f /var/log/messages
+```
 
 # Kibana
 1) Crie 1 vm usando a distribuição [debian](https://www.debian.org/CD/http-ftp/) com os seguintes nome:
@@ -279,6 +284,8 @@ sudo systemctl enable kibana
 ```
 
 5) Consultando o elasticsearch
+- Abre o seu navegador e digite a url abaixo
+> http://[IP_VM_KIBANA]:5601
 - Abra o menu abaixo
 > ![kibana_01](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/files/kibana_01.png)
 - Digite "GET _cluster/health"
@@ -286,6 +293,11 @@ sudo systemctl enable kibana
 
 6) Exemplos dos arquivos 
 > [kibana](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/tree/main/files/kibana)
+
+7) Para vê is logs do kibana
+```
+tail -300f /var/log/messages
+```
 
 # Logstash
 1) Crie 1 vm usando a distribuição [debian](https://www.debian.org/CD/http-ftp/) com os seguintes nome:
