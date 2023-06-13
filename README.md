@@ -132,6 +132,20 @@ vim /home/[NOME_DO_USUARIO]/playbook_elasticsearch.yml
         state: restarted
 ```
 
+3) Instalando elasticsearch
+```
+ansible-playbook -i /home/[NOME_DO_USUARIO]/hosts.ini /home/[NOME_DO_USUARIO]/playbook_elasticsearch.yml
+```
+
+4) Arquivo "start_elasticsearch.sh"
+* Crie o arquivo
+```
+vim /etc/init.d/start_elasticsearch.sh
+```
+* Adicione o texto abaixo
+```
+sudo systemctl enable elasticsearch
+```
 
 - [logstash](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/v2/exemplo/logstash/README.md)
 - [elasticsearch_master_01](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/v2/exemplo/elastic_mater_01/README.md)
