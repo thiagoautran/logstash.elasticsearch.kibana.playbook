@@ -67,13 +67,13 @@ vim /home/[NOME_DO_USUARIO]/elasticsearch.yml
 ```
 * Adicione o texto abaixo
 ```
-cluster.name: clr_elasticsearch
-node.name: elasticmaster01
+cluster.name: [NOME_DO_CLUSTER]
+node.name: [NOME_DA_VM]
 path.data: /var/lib/elasticsearch
 path.logs: /var/log/elasticsearch
 network.host: 0.0.0.0
 http.port: 9200
-discovery.seed_hosts: ["127.0.0.1", "192.168.254.142", "192.168.254.143"]
+discovery.seed_hosts: ["[IP_VM_ELASTICMASTER01]", "[IP_VM_ELASTICMASTER02]", "[IP_VM_ELASTICMASTER03]"]
 cluster.initial_master_nodes: ["elasticmaster01", "elasticmaster02", "elasticmaster03"]
 ```
 
