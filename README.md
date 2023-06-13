@@ -147,8 +147,259 @@ vim /etc/init.d/start_elasticsearch.sh
 sudo systemctl enable elasticsearch
 ```
 
-- [logstash](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/v2/exemplo/logstash/README.md)
-- [elasticsearch_master_01](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/v2/exemplo/elastic_mater_01/README.md)
-- [elasticsearch_master_02](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/v2/exemplo/elastic_mater_02/README.md)
-- [elasticsearch_master_03](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/v2/exemplo/elastic_mater_03/README.md)
-- [kibana](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/v2/exemplo/kibana/README.md)
+## Kibana
+1) Crie 1 vm usando a distribuição [debian](https://www.debian.org/CD/http-ftp/) com os seguintes nome:
+- kibana
+
+2) Em cada uma das vm instale os pré-requisitos abaixo:
+* sudo
+```
+apt update
+apt install sudo
+sudo usermod -aG sudo [NOME_DO_USUARIO]
+```
+* ansible (Necessário para roda o playbook)
+```
+apt install ansible
+```
+
+* vim
+```
+sudo apt install vim
+```
+
+3) Abra o arquivo sources.list e comente todas as linhas que tiverem a palavra "CD-ROM"
+```
+vim /etc/apt/sources.list
+```
+
+### Criando e configurando os arquivos de configuração do kibana para cada vm
+
+1) Arquivo "hosts.ini"
+* Crie o arquivo
+```
+vim /home/[NOME_DO_USUARIO]/hosts.ini
+```
+* Adicione o texto abaixo
+```
+[meuservidores]
+localhost ansible_connection=local
+```
+
+2) Arquivo "kibana.yml"
+* Crie o arquivo
+```
+vim /home/[NOME_DO_USUARIO]/kibana.yml
+```
+* Adicione o texto abaixo
+```
+server.port: 5601
+server.host: "0.0.0.0"
+elasticsearch.hosts: ["http://[IP_VM_ELASTICMASTER01]:9200"]
+```
+
+2) Arquivo "playbook_kibana.yml"
+* Crie o arquivo
+```
+vim /home/[NOME_DO_USUARIO]/playbook_kibana.yml
+```
+* Adicione o texto abaixo
+```
+---
+- name: Instalar e configurar o Kibana
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Instalar pacote gnupg
+      apt:
+        name: gnupg
+        state: present
+  
+    - name: Importar chave GPG do Elasticsearch
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+
+    - name: Adicionar repositório do Elasticsearch
+      apt_repository:
+        repo: deb https://artifacts.elastic.co/packages/7.x/apt stable main
+        state: present
+        filename: "elastic-7.x.list"
+        update_cache: yes
+
+    - name: Atualizar cache do APT
+      apt:
+        update_cache: yes
+
+    - name: Instalar o Kibana
+      apt:
+        name: kibana
+        state: present
+
+    - name: Copiar arquivo de configuração
+      template:
+        src: kibana.yml
+        dest: /etc/kibana/kibana.yml
+        owner: root
+        group: root
+        mode: 0644
+      notify: Reiniciar serviço Kibana
+
+  handlers:
+    - name: Reiniciar serviço Kibana
+      service:
+        name: kibana
+        state: restarted
+```
+
+3) Instalando kibana
+```
+ansible-playbook -i /home/[NOME_DO_USUARIO]/hosts.ini /home/[NOME_DO_USUARIO]/playbook_kibana.yml
+```
+
+4) Arquivo "start_kibana.sh"
+* Crie o arquivo
+```
+vim /etc/init.d/start_kibana.sh
+```
+* Adicione o texto abaixo
+```
+sudo systemctl enable kibana
+```
+
+## Logstash
+1) Crie 1 vm usando a distribuição [debian](https://www.debian.org/CD/http-ftp/) com os seguintes nome:
+- logstash
+
+2) Em cada uma das vm instale os pré-requisitos abaixo:
+* sudo
+```
+apt update
+apt install sudo
+sudo usermod -aG sudo [NOME_DO_USUARIO]
+```
+* ansible (Necessário para roda o playbook)
+```
+apt install ansible
+```
+
+* vim
+```
+sudo apt install vim
+```
+
+3) Abra o arquivo sources.list e comente todas as linhas que tiverem a palavra "CD-ROM"
+```
+vim /etc/apt/sources.list
+```
+
+### Criando e configurando os arquivos de configuração do kibana para cada vm
+
+1) Arquivo "hosts.ini"
+* Crie o arquivo
+```
+vim /home/[NOME_DO_USUARIO]/hosts.ini
+```
+* Adicione o texto abaixo
+```
+[meuservidores]
+localhost ansible_connection=local
+```
+
+2) Arquivo "logstash.conf"
+* Crie o arquivo
+```
+vim /home/[NOME_DO_USUARIO]/logstash.conf
+```
+* Adicione o texto abaixo
+```
+input {
+  file {
+    type => "log"
+    path => "/path/to/logs/*"
+    start_position => "beginning"
+  }
+}
+
+filter {
+}
+
+output {
+  elasticsearch {
+    hosts => ["[IP_VM_ELASTICMASTER01]:9200"]
+    index => "logs-%{+YYYY.MM.dd}"
+  }
+  stdout {}
+}
+```
+
+2) Arquivo "playbook_logstash.yml"
+* Crie o arquivo
+```
+vim /home/[NOME_DO_USUARIO]/playbook_logstash.yml
+```
+* Adicione o texto abaixo
+```
+---
+- name: Instalar e configurar o Logstash
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Instalar pacote gnupg
+      apt:
+        name: gnupg
+        state: present
+  
+    - name: Importar chave GPG do Elasticsearch
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+
+    - name: Adicionar repositório do Elasticsearch
+      apt_repository:
+        repo: deb https://artifacts.elastic.co/packages/7.x/apt stable main
+        state: present
+        filename: "elastic-7.x.list"
+        update_cache: yes
+
+    - name: Atualizar cache do APT
+      apt:
+        update_cache: yes
+
+    - name: Instalar o Logstash
+      apt:
+        name: logstash
+        state: present
+
+    - name: Copiar arquivo de configuração
+      template:
+        src: logstash.conf
+        dest: /etc/logstash/conf.d/logstash.conf
+        owner: root
+        group: root
+        mode: 0644
+      notify: Reiniciar serviço Logstash
+
+  handlers:
+    - name: Reiniciar serviço Logstash
+      service:
+        name: logstash
+        state: restarted
+```
+
+3) Instalando kibana
+```
+ansible-playbook -i /home/[NOME_DO_USUARIO]/hosts.ini /home/[NOME_DO_USUARIO]/playbook_logstash.yml
+```
+
+4) Arquivo "start_logstash.sh"
+* Crie o arquivo
+```
+vim /etc/init.d/start_logstash.sh
+```
+* Adicione o texto abaixo
+```
+sudo systemctl enable logstash
+```
