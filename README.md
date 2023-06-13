@@ -144,6 +144,7 @@ vim /etc/init.d/start_elasticsearch.sh
 ```
 * Adicione o texto abaixo
 ```
+#!/bin/bash
 sudo systemctl enable elasticsearch
 ```
 
@@ -280,6 +281,7 @@ vim /etc/init.d/start_kibana.sh
 ```
 * Adicione o texto abaixo
 ```
+#!/bin/bash
 sudo systemctl enable kibana
 ```
 
@@ -432,6 +434,7 @@ vim /etc/init.d/start_logstash.sh
 ```
 * Adicione o texto abaixo
 ```
+#!/bin/bash
 sudo systemctl enable logstash
 ```
 
