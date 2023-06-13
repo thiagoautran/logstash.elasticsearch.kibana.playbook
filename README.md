@@ -1,4 +1,4 @@
-## Elasticsearch
+# Elasticsearch
 
 ### Criando e configurando as vm's
 1) Crie 3 vm usando a distribuição [debian](https://www.debian.org/CD/http-ftp/) com os seguintes nomes:
@@ -147,7 +147,7 @@ vim /etc/init.d/start_elasticsearch.sh
 sudo systemctl enable elasticsearch
 ```
 
-## Kibana
+# Kibana
 1) Crie 1 vm usando a distribuição [debian](https://www.debian.org/CD/http-ftp/) com os seguintes nome:
 - kibana
 
@@ -268,7 +268,7 @@ vim /etc/init.d/start_kibana.sh
 sudo systemctl enable kibana
 ```
 
-## Logstash
+# Logstash
 1) Crie 1 vm usando a distribuição [debian](https://www.debian.org/CD/http-ftp/) com os seguintes nome:
 - logstash
 
