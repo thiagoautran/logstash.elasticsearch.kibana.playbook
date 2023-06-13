@@ -268,6 +268,10 @@ vim /etc/init.d/start_kibana.sh
 sudo systemctl enable kibana
 ```
 
+5) Consultando o elasticsearch
+[](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/files/kibana_01.png)
+[](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/files/kibana_02.png)
+
 # Logstash
 1) Crie 1 vm usando a distribuição [debian](https://www.debian.org/CD/http-ftp/) com os seguintes nome:
 - logstash
