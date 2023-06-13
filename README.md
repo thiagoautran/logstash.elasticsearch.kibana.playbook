@@ -147,6 +147,11 @@ vim /etc/init.d/start_elasticsearch.sh
 sudo systemctl enable elasticsearch
 ```
 
+5) Abra o chrome e digite as url's
+> http://IP_VM_ELASTICMASTER01]:9200/
+> http://IP_VM_ELASTICMASTER02]:9200/
+> http://IP_VM_ELASTICMASTER03]:9200/
+
 # Kibana
 1) Crie 1 vm usando a distribuição [debian](https://www.debian.org/CD/http-ftp/) com os seguintes nome:
 - kibana
