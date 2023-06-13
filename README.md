@@ -2,9 +2,9 @@
 
 ### Criando e configurando as vm's
 1) Crie 3 vm usando a distribuição [debian](https://www.debian.org/CD/http-ftp/) com os seguintes nomes:
-- elastic_master_01
-- elastic_master_02
-- elastic_master_03
+- elasticmaster01
+- elasticmaster02
+- elasticmaster03
 
 2) Em cada uma das vm instale os pré-requisitos abaixo:
 * sudo
@@ -26,6 +26,25 @@ sudo apt install vim
 3) Abra o arquivo sources.list e comente todas as linhas que tiverem a palavra "CD-ROM"
 ```
 vim /etc/apt/sources.list
+```
+
+4) Obtenha o ip de cada vm
+```
+ip addr show
+```
+
+5) Configure o arquivo de hosts para cada vm
+```
+[DIGITE_O_IP] elasticmaster01
+[DIGITE_O_IP] elasticmaster02
+[DIGITE_O_IP] elasticmaster03
+```
+
+6) Verifique se as configurações estão funcionado
+```
+ping elasticmaster01
+ping elasticmaster02
+ping elasticmaster03
 ```
 
 ### Criando e configurando os arquivos de configuração do elasticsearch para cada vm
