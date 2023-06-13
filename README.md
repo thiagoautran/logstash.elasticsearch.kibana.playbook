@@ -269,7 +269,9 @@ sudo systemctl enable kibana
 ```
 
 5) Consultando o elasticsearch
+- Abra o menu abaixo
 ![kibana_01](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/files/kibana_01.png)
+- Digite "GET _cluster/health"
 ![kibana_02](https://github.com/thiagoautran/logstash.elasticsearch.kibana.playbook/blob/main/files/kibana_02.png)
 
 # Logstash
